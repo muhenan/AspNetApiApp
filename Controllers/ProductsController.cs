@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetApiApp.Controllers
 {
+    // add comments to describe the purpose of the class
+    // This class serves as the controller for product-related operations in a web application.
+    // It handles HTTP requests related to products, such as fetching, creating, updating, and deleting products.
+    // The controller interacts with the model to process business logic and returns the appropriate views or data responses.
     [ApiController]
     [Route("[controller]")]
     public class ProductsController : ControllerBase
@@ -22,7 +26,10 @@ namespace AspNetApiApp.Controllers
             _logger = logger;
         }
 
-        // GET: products
+        /// <summary>
+        /// Retrieves all products.
+        /// </summary>
+        /// <returns>An enumerable collection of products.</returns>
         [HttpGet(Name = "GetProducts")]
         public IEnumerable<Product> Get()
         {
@@ -30,7 +37,11 @@ namespace AspNetApiApp.Controllers
             return Products.ToArray();
         }
 
-        // GET: products/{id}
+        /// <summary>
+        /// Retrieves a product by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the product to retrieve.</param>
+        /// <returns>An <see cref="ActionResult"/> representing the result of the operation.</returns>
         [HttpGet("{id}", Name = "GetProduct")]
         public ActionResult<Product> GetProduct(int id)
         {
@@ -44,7 +55,11 @@ namespace AspNetApiApp.Controllers
             return product;
         }
 
-        // POST: products
+        /// <summary>
+        /// Creates a new product.
+        /// </summary>
+        /// <param name="product">The product to create.</param>
+        /// <returns>An <see cref="ActionResult"/> representing the result of the operation.</returns>
         [HttpPost(Name = "CreateProduct")]
         public ActionResult<Product> CreateProduct(Product product)
         {
@@ -54,7 +69,26 @@ namespace AspNetApiApp.Controllers
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
 
-        // PUT: products/{id}
+        /// <summary>
+        /// Creates a new random product.
+        /// </summary>
+        /// <returns>An <see cref="ActionResult"/> representing the result of the operation.</returns>
+        [HttpPost(Name = "CreateProductRandom")]
+        [Route("CreateProductRandom")]
+        public ActionResult<Product> CreateProductRandom()
+        {
+            _logger.LogInformation("Creating a new product");
+            var product = new Product { Id = Products.Count + 1, Name = "Product" + (Products.Count + 1), Price = 10.0 };
+            Products.Add(product);
+            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+        }
+
+        /// <summary>
+        /// Updates a product with the specified ID.
+        /// </summary>
+        /// <param name="id">The ID of the product to update.</param>
+        /// <param name="updatedProduct">The updated product data.</param>
+        /// <returns>An <see cref="IActionResult"/> representing the result of the update operation.</returns>
         [HttpPut("{id}", Name = "UpdateProduct")]
         public IActionResult UpdateProduct(int id, Product updatedProduct)
         {
@@ -71,8 +105,12 @@ namespace AspNetApiApp.Controllers
             return NoContent();
         }
 
-        // DELETE: products/{id}
-        [HttpDelete("{id}", Name = "DeleteProduct")]
+        /// <summary>
+        /// Deletes a product with the specified ID.
+        /// </summary>
+        /// <param name="id">The ID of the product to delete.</param>
+        /// <returns>An <see cref="IActionResult"/> representing the result of the delete operation.</returns>
+        /// [HttpDelete("{id}", Name = "DeleteProduct")]
         public IActionResult DeleteProduct(int id)
         {
             _logger.LogInformation($"Deleting product with id {id}");
@@ -87,7 +125,7 @@ namespace AspNetApiApp.Controllers
             return NoContent();
         }
 
-        private Product FindProductById(int id)
+        private Product? FindProductById(int id)
         {
             return Products.FirstOrDefault(p => p.Id == id);
         }
