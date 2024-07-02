@@ -1,0 +1,20 @@
+[
+    {
+      "Id": 1,
+      "Title": "Understanding Dependency Injection in .NET   ----- HM",
+      "Content": "Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class in different ways.",
+      "PublicationDate": "2023-04-01T00:00:00Z"
+    },
+    {
+      "Id": 2,
+      "Title": "Exploring C# 9.0 Record Types",
+      "Content": "C# 9.0 introduces record types, which are a reference type that provides synthesized methods to provide value semantics for equality. Records are immutable by default.",
+      "PublicationDate": "2023-04-08T00:00:00Z"
+    },
+    {
+      "Id": 3,
+      "Title": "Building RESTful APIs with ASP.NET Core",
+      "Content": "This article explores how to build RESTful APIs using ASP.NET Core, focusing on the new features and improvements that .NET 5 and .NET 6 bring to the table.",
+      "PublicationDate": "2023-04-15T00:00:00Z"
+    }
+]
